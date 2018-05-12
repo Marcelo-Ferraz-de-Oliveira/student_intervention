@@ -11876,14 +11876,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Calcule o número de estudante</span>
 <span class="c1">#n_students = None</span>
 
 <span class="c1"># TODO: Calcule o número de atributos</span>
-<span class="n">n_students</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">n_students</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">shape</span>
 
 <span class="c1"># TODO: Calcule o número de alunos aprovados</span>
 <span class="n">n_passed</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="o">.</span><span class="n">passed</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">passed</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
@@ -11918,7 +11918,7 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Número total de estudantes: 395
-Número de atributos: 31
+Número de atributos: 30
 Número de estudantes aprovados: 265
 Número de estudantes reprovados: 130
 Taxa de graduação: 67.09%
@@ -12189,23 +12189,22 @@ O conjunto de teste tem 95 amostras.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Resposta: </strong></p>
-<p>Respondendo a última questão em primeiro lugar - o que faz dos modelos escolhidos bons candidatos para o problema - a escolha dos três métodos abaixo foi feita por eliminação, baseando-se nos seguintes critérios:</p>
-<p>Necessidade de um algoritmo de classificação com melhor desempenho para classificações binárias - o que descartou os algoritmos de agregação e KNN;</p>
-<p>Necessidade de um bom poder de generalização com um conjunto de dados reduzido - o que eliminou o Gaussian Naive Bayes, que possui sua grande utilidade em generalizar conjuntos de dados muito grandes;</p>
-<p>Necessidade de um bom poder de generalização sem a necessidade de grande número de ajustes prévios - descartando o Método do gradiente estocástico, cujos resultados variam muito de acordo com a escolha prévia dos seus hiperparâmetros.</p>
-<p>Com essas considerações, os modelos restantes foram: Árvores de decisão, Máquinas de vetores de suporte e Regressão logística.</p>
+<p>Os modelos escolhidos foram:</p>
 <p><strong>Árvores de decisão:</strong></p>
 <p>As árvores de decisão são normalmente aplicadas em situações onde é interessante se verificar os passos realizados pelo algoritmo. Um bom exemplo é a área médica, onde as árvores de decisão já foram aplicadas no diagnóstico de asma, identificação de indivíduos não aderentes à tratamento anti-hipertensivo e identificação de pacientes propensos ao diabetes, por exemplo.(Fonte: <a href="https://periodicos.ufersa.edu.br/index.php/ecop/article/download/7076/6533">https://periodicos.ufersa.edu.br/index.php/ecop/article/download/7076/6533</a>)</p>
 <p>As vantagens da árvore de de decisão são a facilidade de entendimento do modelo - uma vez que as árvores podem ser visualizadas graficamente; o funcionamento razoável com dados pouco tratados - aceitando inclusive dados em formato não numérico; e o grande desempenho na realização de testes.</p>
 <p>As desvantagens são a tendência a se criar árvores complexas - que não generalizam bem os dados; dificuldades de adaptação à mudanças nos dados de treinamento; e um crescimento exponencial do tempo de treinamento em relação ao tamanho do conjunto de dados.</p>
+<p>Ela é um bom candidato para este modelo pois o conjunto de dados não é tão grande a ponto de tornar o tempo de treinamento muito extenso e os dados não sofreram nenhum tipo de preparação - a única alteração feita foi a criação das variáveis postiças, sem nenhum tipo de normalização ou outra alteração no conjunto de dados, o que vai de encontro com as vantagens do modelo.</p>
 <p><strong>Máquinas de vetores de suporte:</strong></p>
 <p>As SVMs são aplicadas principalmente em problemas complexos, não linearmente separáveis. Um exemplo é a sua aplicação para o reconhecimento de rostos, onde a SVM classifica cada parte da imagem como "face" ou "não-face" e cria uma delimitação em torno da face.(Fonte: <a href="https://data-flair.training/blogs/applications-of-svm/">https://data-flair.training/blogs/applications-of-svm/</a>)</p>
 <p>As vantagens são os bons resultados apresentados mesmo em bases de dados com muitas dimensões; os bons resultados obtidos com conjuntos de dados com outliers ou ruidos; e a possibilidade de classificação de conjuntos não linearmente separáveis, através de uso de kernels.</p>
 <p>As desvantagens são a dificuldade em se interpretar os resultados do modelo; a incapacidade de gerar estimativas probabilísticas nativamente; e a grande dependência de ajuste nos kernels para se obter bons resultados, o que pode acarretar em um grande uso de recursos computacionais.</p>
+<p>Este é um bom modelo para nosso uso pois proporciona uma boa generalização para conjuntos de dados não muito grandes, como o nosso, e tem uma tolerância maior a ruídos e outliers - cuja existência não foi analisada nesse conjunto de dados e, portanto, não pode ser descartada.</p>
 <p><strong>Regressão logística:</strong></p>
 <p>A regressão logística é muito utilizada em áreas onde é interessante se verificar ou explicar o impacto de uma determinada variável no resultado. Um exemplo é o uso na área de econometria, para explicar uma variável discreta, como por exemplo as intenções de voto.(Fonte: <a href="https://pt.wikipedia.org/wiki/Regress%C3%A3o_log%C3%ADstica">https://pt.wikipedia.org/wiki/Regress%C3%A3o_log%C3%ADstica</a>)</p>
 <p>As vantagens da Regressão logística são a sua simplicidade intrínseca, que evita sobreajustes; a disponibilidade de uma análise probabilística dos seus resultados; e a possibilidade de uma fácil análise do impacto de uma variável sobre o resultado.</p>
-<p>As desvantagens são a mudança significativa nos resultados de conjuntos de dados com outliers; a necessidade de ajustes prévios do conjunto de dados, principalmente para a verificação de variáveis com alta correlação entre si; e um mau desempenho em problemas não linearmente separáveis, como a porta XOR, por exemplo, ;</p>
+<p>As desvantagens são a mudança significativa nos resultados de conjuntos de dados com outliers; a necessidade de ajustes prévios do conjunto de dados, principalmente para a verificação de variáveis com alta correlação entre si; e um mau desempenho em problemas não linearmente separáveis, como a porta XOR, por exemplo.</p>
+<p>É um bom modelo pois consegue fazer uma separação linear razoável - principalmente em dados com duas categorias, como o nosso, evitando-se sobreajustes, além de ser um bom modelo para conjuntos de dados não muito extensos, como é o caso do nosso.</p>
 
 </div>
 </div>
@@ -12581,9 +12580,10 @@ Pontuação F1 para o conjunto de teste: 0.8630.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Resposta: </strong></p>
-<p>As Máquinas de Vetores de Suporte são algortimos que realizam a separação linear de um conjunto de dados - no caso dos nossos dados, a separação entre quem está aprovado ou reprovado. A separação linear consiste, grosseiramente falando, na divisão dos dados em dois conjuntos, separados um uma "linha".</p>
-<p>Este algoritmo procura alcançar a maior margem possível entre os dados - o que quer dizer que ele procura separar os dados com a melhor margem de segurança possível, o que provoca uma melhor capacidade de predição de aprovações ou reprovações futuras.</p>
-<p>Além disso, caso o conjunto de dados não possa ser, inicialmente, linearmente separável - caso não se possa passar uma "linha" que separe os conjuntos - ainda é possível usar o algoritmo, desde que se aplique alguma função aos dados de entrada antes da análise. Estas funções são técnicamente chamadas de "kernels" e são capazes de permitir as máquinas de vetores de suporte realizar treinamento e previsões em uma grande variedade de conjuntos de dados.</p>
+<p>Primeiramente, precisamos explicar o que é um modelo. O modelo é um sistema que usa um conjunto de dados já com a resposta esperada - no nosso caso, os dados dos alunos já com a informação de "aprovado" ou "reprovado" - para tentar adivinhar a resposta de outro conjunto de dados com as mesmas características, mas sem as respostas. O conjunto de dados com respostas é chamado de "conjunto de treinamento" e o sem respostas "conjunto de testes". Com esses dois conjuntos de dados, o modelo primeiro é "treinado", usando o conjunto de treinamento, para depois conseguir fazer previsões nos dados do conjunto de testes.</p>
+<p>Para realizar essa tarefa de adivinhação, o modelo escolhido foi a Máquina de Vetor de Suporte. Esse modelo tenta separar da melhor forma possível os dois tipos de alunos - aprovado e reprovado. Para efeito de entendimento, considere que cada aluno seja uma bola colorida: os aprovados azuis e os reprovados vermelhas. Com todas as bolas em cima de uma mesa, tenta-se separá-las da melhor forma possível para que do lado direito tenha-se apenas bolas azuis e do lado esquerdo apenas bolas vermelhas, de modo que se possa riscar uma linha definindo bem o lado onde as bolas azuis e vermelhas estão. Esse processo é tecnicamente chamado de separação linear.</p>
+<p>Este modelo procura separar os dados com a melhor margem de segurança, ou seja, ele tenta fazer a separação de modo que a distância entre os aluno aprovado com os piores critérios e o reprovado com os melhores critérios (ou da bola azul mais próxima da bola vermelha, no nosso exemplo anterior) seja a maior possível. Tecnicamente, esse processo é chamado de maximização da margem.</p>
+<p>Além disso, caso o conjunto de dados não possa ser, inicialmente, linearmente separável - caso não se possa passar uma "linha" que separe os conjuntos - ainda é possível usar o modelo, desde que se aplique alguma função aos dados de entrada antes da análise. Estas funções são técnicamente chamadas de "kernels" e são capazes de permitir as máquinas de vetores de suporte realizar treinamento e previsões em uma grande variedade de conjuntos de dados.</p>
 
 </div>
 </div>
